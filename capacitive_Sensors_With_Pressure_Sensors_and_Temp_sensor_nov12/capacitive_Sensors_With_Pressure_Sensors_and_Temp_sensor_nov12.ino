@@ -23,10 +23,10 @@ const int pA4pin = A4; //pressure sensor on pin A4
 
 const int indicator = 13; //indicator LED on pin 13 (built in) for program ON 
 
-const long c2Bias = 2400;
-const long c5Bias = 2745;
-const long c6Bias = 2570;
-const long c7Bias = 2460;
+const long c2Bias = 0;
+const long c5Bias = 0;
+const long c6Bias = 0;
+const long c7Bias = 0;
 const long c8Bias = 14;//4
 const long c9Bias = 13;//2
 const long c10Bias = 13;//5
