@@ -26,12 +26,12 @@ const int indicator = 13; //indicator LED on pin 13 (built in) for program ON
 const long c2Bias = 0;
 const long c5Bias = 0;
 const long c6Bias = 0;
-const long c7Bias = 0;
-const long c8Bias = 26;//3
-const long c9Bias = 29;//5
-const long c10Bias = 23;//2
-const long c11Bias = 28;//4
-const long c12Bias = 24;//1
+const long c7Bias = 19s;//1
+const long c8Bias = 25;//3
+const long c9Bias = 27;//5
+const long c10Bias = 22;//2
+const long c11Bias = 26;//4
+const long c12Bias = 0;//
 
 const int tempSensor = A1;
 
@@ -72,7 +72,7 @@ void setup()
 
 void loop()
 {
-  readCaps(1,100); //Read capacitive sensors 
+  readCaps(1,100,1); //Read capacitive sensors 
   readPres(); //Read pressure sensors
   readTemp();
   printCapVals(0); //Print values read from capacitive sensors. 0 allows for values to be continued to be printed on same line.
@@ -90,7 +90,7 @@ void readTemp()
   tempC = (voltage - 0.5) * 100;  
 }
 
-void readCaps(int input, int resolution)//function to read in capacitive sensor values
+void readCaps(int input, int resolution, int x)//function to read in capacitive sensor values
 {
   long start = millis();
 
@@ -105,7 +105,7 @@ void readCaps(int input, int resolution)//function to read in capacitive sensor 
   c2 = cs_c2.capacitiveSensorRaw(resolution);
 
   if(input == 1)
-    hardcodeDown(100,1);  
+    hardcodeDown(100,x);  
 }
 
 void readPres()//function to read in pressure sensor values
@@ -135,7 +135,7 @@ void printCapVals(int t)//function to print out capacitive sensor values
   
   //Serial1.print("Caps (12,10,8,11,9):");
   //Serial1.print("\t");
-  Serial1.print(c12);
+  Serial1.print(c7);
   Serial1.print("\t"); 
   Serial1.print(c10); 
   Serial1.print("\t");
@@ -189,17 +189,19 @@ void autoCalibrateOff(
 }
 
 void hardcodeDown(int div,int sub)
-{//12,10,8,11,9
-  c12 = c12/div;
+{//7,10,8,11,9
+  c7 = c7/div;
   c10 = c10/div;
+  
   c8 = c8/div;
   c11 = c11/div;
   c9 = c9/div;
   
   if(sub == 1)
   {
-    c12 = c12 - c12Bias;
+    c7 = c7 - c7Bias;
     c10 = c10 - c10Bias;
+    
     c8 = c8 - c8Bias;
     c11 = c11 - c11Bias;
     c9 = c9 - c9Bias;
